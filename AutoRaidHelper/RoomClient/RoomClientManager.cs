@@ -11,6 +11,7 @@ using AEAssist.JobApi;
 using AEAssist.Verify;
 using AutoRaidHelper.RoomClient.Command;
 using AutoRaidHelper.Settings;
+using ECommons.DalamudServices;
 
 namespace AutoRaidHelper.RoomClient;
 
@@ -277,7 +278,7 @@ public class RoomClientManager : IDisposable
 
         return new PlayerInfo
         {
-            CID = CidHelper.GetCid().ToString(),
+            CID = Svc.PlayerState.ContentId.ToString(),
             Name = me?.Name.ToString() ?? "Unknown",
             WorldId = (int)(me?.HomeWorld.RowId ?? 0),
             Job = GetCurrentJobName(),

@@ -133,12 +133,12 @@ public class LootRollingManager : IDisposable
         }
     }
 
-    private void OnChatMessage(XivChatType type, int senderId, ref SeString sender, ref SeString message, ref bool isHandled)
+    private void OnChatMessage(Dalamud.Game.Chat.IHandleableChatMessage message)
     {
         var settings = FullAutoSettings.Instance.LootRollingSettings;
-        if (!settings.AutoRollEnabled || type != (XivChatType)2105) return;
+        if (!settings.AutoRollEnabled || message.LogKind != (XivChatType)2105) return;
 
-        var textValue = message.TextValue;
+        var textValue = message.Message.TextValue;
         // LogMessage ID 5194 表示可以 Roll 了
         if (textValue != Svc.Data.GetExcelSheet<LogMessage>()!.First(x => x.RowId == 5194).Text) return;
         _nextRollTime = DateTime.Now.AddMilliseconds(new Random()
