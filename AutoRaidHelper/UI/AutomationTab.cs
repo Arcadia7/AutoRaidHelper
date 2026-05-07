@@ -810,7 +810,7 @@ namespace AutoRaidHelper.UI
                     return;
 
                 var notInCombat = !Core.Me.InCombat();
-                var inMission = Core.Resolve<MemApiDuty>().InMission;
+                var inMission = Core.Resolve<MemApiDuty>().InMission || (Core.Resolve<MemApiDuty>().IsBoundByDuty() && !Svc.Condition[ConditionFlag.OccupiedInCutSceneEvent]); 
                 var partyIs8 = Core.Resolve<MemApiDuty>().DutyMembersNumber() == 8;
 
                 // 若条件满足，则等待8秒后发送倒计时命令
