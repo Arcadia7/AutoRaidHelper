@@ -67,6 +67,9 @@ namespace AutoRaidHelper.Settings
         // LootRollingSettings：战利品 Roll 点相关设置
         public LootRollingSettings LootRollingSettings { get; set; } = new();
 
+        // AeRemoteRoomBroadcastSettings：AE 遥控房间聊天触发广播设置
+        public AeRemoteRoomBroadcastSettings AeRemoteRoomBroadcastSettings { get; set; } = new();
+        
         // UI相关设置：磨砂玻璃背景和窗口不透明度
         public bool UseFrostedGlass { get; set; } = true;
         public float WindowOpacity { get; set; } = 0.5f;
@@ -946,5 +949,33 @@ namespace AutoRaidHelper.Settings
 
         // 自定义限制规则
         public RestrictionGroup Restrictions { get; set; } = new();
+    }
+    
+    /// <summary>
+    /// AeRemoteRoomBroadcastSettings 存储 AE 遥控房间广播触发配置。
+    /// </summary>
+    public class AeRemoteRoomBroadcastSettings
+    {
+        /// <summary>
+        /// 是否启用聊天触发自动广播。
+        /// </summary>
+        public bool Enabled { get; set; } = true;
+
+        /// <summary>
+        /// 严格匹配的触发文本。
+        /// </summary>
+        public string TriggerText { get; set; } = "FA1919";
+
+        public void UpdateEnabled(bool enabled)
+        {
+            Enabled = enabled;
+            FullAutoSettings.Instance.Save();
+        }
+
+        public void UpdateTriggerText(string triggerText)
+        {
+            TriggerText = triggerText;
+            FullAutoSettings.Instance.Save();
+        }
     }
 }

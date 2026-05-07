@@ -19,6 +19,7 @@ namespace AutoRaidHelper.Plugin
         private MainWindow? _mainWindow;
         private FloatingIconWindow? _floatingIconWindow;
         private LootRollingManager? _lootRollingManager;
+        private AeRemoteRoomBroadcastTrigger? _aeRemoteRoomBroadcastTrigger;
 
         // 无参构造函数，供AEAssist的PluginLoader使用
         public AutoRaidHelper()
@@ -59,6 +60,9 @@ namespace AutoRaidHelper.Plugin
             // 初始化 LootRollingManager
             _lootRollingManager = new LootRollingManager();
 
+            // 初始化 AE 遥控房间广播触发器
+            _aeRemoteRoomBroadcastTrigger = new AeRemoteRoomBroadcastTrigger();
+            
             // 注册命令
             Svc.Commands.AddHandler(CommandName, new Dalamud.Game.Command.CommandInfo(OnCommand)
             {
@@ -83,6 +87,9 @@ namespace AutoRaidHelper.Plugin
 
             // 清理 LootRollingManager
             _lootRollingManager?.Dispose();
+            
+            // 清理 AeRemoteRoomBroadcastTrigger
+            _aeRemoteRoomBroadcastTrigger?.Dispose();
 
             // 清理窗口
             if (_windowSystem != null && _mainWindow != null)
